@@ -8,42 +8,57 @@ import java.util.LinkedHashMap;
  */
 public class Bank implements BankInterface {
 	private LinkedHashMap<Long, Account> accounts;
+	private long accountNumber = 0;
 
 	public Bank() {
-		// complete the function
+		accounts = new LinkedHashMap<Long, Account>();
 	}
 
 	private Account getAccount(Long accountNumber) {
-		// complete the function
-        return null;
+		return accounts.get(accountNumber);
 	}
 
 	public Long openCommercialAccount(Company company, int pin, double startingDeposit) {
-		// complete the function
-        return -1L;
+		CommercialAccount c = new CommercialAccount(company, ++accountNumber, pin, startingDeposit);
+		accounts.put(accountNumber, c);
+		return c.getAccountNumber();
 	}
 
 	public Long openConsumerAccount(Person person, int pin, double startingDeposit) {
-		// complete the function
-        return -1L;
+		ConsumerAccount c = new ConsumerAccount(person, ++accountNumber, pin, startingDeposit);
+		accounts.put(accountNumber, c);
+		return c.getAccountNumber();
 	}
 
 	public boolean authenticateUser(Long accountNumber, int pin) {
-		// complete the function
-        return true;
+		Account a = getAccount(accountNumber);
+		if (a != null) {
+			return a.validatePin(pin);
+		}
+		return false;
 	}
 
 	public double getBalance(Long accountNumber) {
+		Account a = getAccount(accountNumber);
+		if (a != null) {
+			return a.getBalance();
+		}
 		// complete the function
-        return -1;
+		return -1;
 	}
 
 	public void credit(Long accountNumber, double amount) {
-		// complete the function
+		Account a = getAccount(accountNumber);
+		if (a != null) {
+			a.creditAccount(amount);
+		}
 	}
 
 	public boolean debit(Long accountNumber, double amount) {
-		// complete the function
-        return true;
+		Account a = getAccount(accountNumber);
+		if (a != null) {
+			return a.debitAccount(amount);
+		}
+		return false;
 	}
 }

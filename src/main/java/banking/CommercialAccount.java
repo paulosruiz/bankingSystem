@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Account implementation for commercial (business) customers.<br><br>
+ * Account implementation for commercial (business) customers.<br>
+ * <br>
  *
  * Private Variables:<br>
  * {@link #authorizedUsers}: List&lt;Person&gt;<br>
  */
-public class CommercialAccount  {
-	private List<Person> authorizedUsers;
+public class CommercialAccount extends Account {
+	private List<Person> authorizedUsers = new ArrayList<Person>();
 
 	public CommercialAccount(Company company, Long accountNumber, int pin, double startingDeposit) {
+		super(company, accountNumber, pin, startingDeposit);
+
 		// complete the function
 	}
 
@@ -20,15 +23,15 @@ public class CommercialAccount  {
 	 * @param person The authorized user to add to the account.
 	 */
 	protected void addAuthorizedUser(Person person) {
-		// complete the function
+		authorizedUsers.add(person);
 	}
 
 	/**
 	 * @param person
-	 * @return true if person matches an authorized user in {@link #authorizedUsers}; otherwise, false.
+	 * @return true if person matches an authorized user in
+	 *         {@link #authorizedUsers}; otherwise, false.
 	 */
 	public boolean isAuthorizedUser(Person person) {
-		// complete the function
-        return true;
+		return authorizedUsers.contains(person);
 	}
 }
